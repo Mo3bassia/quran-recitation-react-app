@@ -1,9 +1,15 @@
 import ToggleBtn from "./ToggleBtn.js";
 
-export default function Nav({ setIsDark, lang, setLang, setReciters }) {
+export default function Nav({
+  setIsDark,
+  lang,
+  setLang,
+  setReciters,
+  resetAll,
+}) {
   function handleSelect(e) {
     setLang(e.target.value);
-    setReciters([]);
+    resetAll();
   }
   return (
     <nav
@@ -11,9 +17,12 @@ export default function Nav({ setIsDark, lang, setLang, setReciters }) {
     >
       <div className="container mx-auto py-6 px-3 sm:px-4 md:px-5">
         <div className="flex justify-between items-center">
-          <div className=" font-bold text-xl sm:text-xl md:text-2xl lg:text-4xl">
+          <a
+            className=" font-bold text-xl sm:text-xl md:text-2xl lg:text-4xl"
+            href="#"
+          >
             {lang === "eng" ? "Quran Recitation" : "صوت القرآن"}
-          </div>
+          </a>
           <div className="flex items-center gap-2">
             <select
               className="bg-[#FFFFFF] border border-gray-300 text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-300"

@@ -6,6 +6,7 @@ import SearchInput from "./components/SearchInput.js";
 import NumberOfReciters from "./components/NumberOfReciters.js";
 import LoaderPost from "./components/LoaderPost.js";
 import Reciter from "./components/Reciter.js";
+import NotFound from "./components/NotFound.js";
 
 export default function App() {
   const [lang, setLang] = useLocalStorage("eng");
@@ -13,6 +14,9 @@ export default function App() {
   const [reciters, setReciters] = useState([]);
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [searchedItems, setSearchedItems] = useState([]);
+
+  const checkSearchedEmpty = searchedItems.length === 0;
 
   useEffect(
     function () {
@@ -27,8 +31,13 @@ export default function App() {
       }
       getReciters();
     },
-    [query, lang]
+    [lang]
   );
+
+  function resetAll() {
+    setReciters([]);
+    setSearchedItems([]);
+  }
 
   useClasses(
     document.body,
@@ -55,7 +64,7 @@ export default function App() {
     [lang, isDark]
   );
 
-  console.log(reciters);
+  console.log(query === "");
   return (
     <>
       <Nav
@@ -63,13 +72,23 @@ export default function App() {
         lang={lang}
         setLang={setLang}
         setReciters={setReciters}
+        resetAll={resetAll}
       />
       <div
         className={`min-h-screen bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50`}
       >
         <div className="container mx-auto p-4 pt-6 md:p-6 lg:p-12  ">
           <NumberOfReciters lang={lang} reciters={reciters} />
-          <SearchInput lang={lang} query={query} setQuery={setQuery} />
+          <SearchInput
+            lang={lang}
+            query={query}
+            setQuery={setQuery}
+            searchedItems={searchedItems}
+            setSearchedItems={setSearchedItems}
+            reciters={reciters}
+            checkSearchedEmpty={checkSearchedEmpty}
+            isLoading={isLoading}
+          />
           {isLoading ? (
             <div className="flex justify-center items-center gap-5 flex-wrap">
               <LoaderPost />
@@ -84,11 +103,21 @@ export default function App() {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8">
-              {reciters
-                ?.sort((a, b) => +a.id - +b.id)
-                .map((reciter, index) => (
-                  <Reciter reciter={reciter} key={index} index={index} />
-                ))}
+              {searchedItems.length === 0 && query !== "" ? (
+                <NotFound />
+              ) : searchedItems.length === 0 && query === "" ? (
+                reciters
+                  ?.sort((a, b) => +a.id - +b.id)
+                  .map((reciter, index) => (
+                    <Reciter reciter={reciter} key={index} index={index} />
+                  ))
+              ) : (
+                searchedItems
+                  ?.sort((a, b) => +a.id - +b.id)
+                  .map((reciter, index) => (
+                    <Reciter reciter={reciter} key={index} index={index} />
+                  ))
+              )}
             </div>
           )}
         </div>
