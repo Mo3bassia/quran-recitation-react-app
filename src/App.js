@@ -5,10 +5,11 @@ import { useLocalStorage } from "./hooks/useLocalStorage.js";
 import SearchInput from "./components/SearchInput.js";
 import NumberOfReciters from "./components/NumberOfReciters.js";
 import LoaderPost from "./components/LoaderPost.js";
+import Reciter from "./components/Reciter.js";
 
 export default function App() {
   const [lang, setLang] = useLocalStorage("eng");
-  const [isDark, setIsDark] = useLocalStorage(false);
+  const [isDark, setIsDark] = useLocalStorage(false, "isDark");
   const [reciters, setReciters] = useState([]);
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +23,6 @@ export default function App() {
         );
         const data = await response.json();
         setReciters(data.reciters);
-        console.log(data.reciters);
         setIsLoading(false);
       }
       getReciters();
@@ -55,11 +55,17 @@ export default function App() {
     [lang, isDark]
   );
 
+  console.log(reciters);
   return (
     <>
-      <Nav setIsDark={setIsDark} lang={lang} setLang={setLang} />
+      <Nav
+        setIsDark={setIsDark}
+        lang={lang}
+        setLang={setLang}
+        setReciters={setReciters}
+      />
       <div
-        className={`min-h-screen bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-100`}
+        className={`min-h-screen bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50`}
       >
         <div className="container mx-auto p-4 pt-6 md:p-6 lg:p-12  ">
           <NumberOfReciters lang={lang} reciters={reciters} />
@@ -77,7 +83,13 @@ export default function App() {
               <LoaderPost />
             </div>
           ) : (
-            "Done"
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8">
+              {reciters
+                ?.sort((a, b) => +a.id - +b.id)
+                .map((reciter, index) => (
+                  <Reciter reciter={reciter} key={index} index={index} />
+                ))}
+            </div>
           )}
         </div>
       </div>

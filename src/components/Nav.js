@@ -1,6 +1,10 @@
 import ToggleBtn from "./ToggleBtn.js";
 
-export default function Nav({ setIsDark, lang, setLang }) {
+export default function Nav({ setIsDark, lang, setLang, setReciters }) {
+  function handleSelect(e) {
+    setLang(e.target.value);
+    setReciters([]);
+  }
   return (
     <nav
       className={`bg-[#E5E7EB]  dark:bg-gray-800 dark:text-slate-100 text-gray-800 dark:text-gray-200`}
@@ -14,7 +18,7 @@ export default function Nav({ setIsDark, lang, setLang }) {
             <select
               className="bg-[#FFFFFF] border border-gray-300 text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-300"
               value={lang}
-              onChange={(e) => setLang(e.target.value)}
+              onChange={(e) => handleSelect(e)}
             >
               <option value="ar">AR</option>
               <option value="eng">EN</option>
