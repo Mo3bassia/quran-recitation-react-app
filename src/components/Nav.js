@@ -8,7 +8,7 @@ export default function Nav({ setIsDark, lang, setLang }) {
       <div className="container mx-auto py-6 px-3 sm:px-4 md:px-5">
         <div className="flex justify-between items-center">
           <div className=" font-bold text-xl sm:text-xl md:text-2xl lg:text-4xl">
-            {lang === "en" ? "Quran Recitation" : "صوت القرآن"}
+            {lang === "eng" ? "Quran Recitation" : "صوت القرآن"}
           </div>
           <div className="flex items-center gap-2">
             <select
@@ -17,7 +17,7 @@ export default function Nav({ setIsDark, lang, setLang }) {
               onChange={(e) => setLang(e.target.value)}
             >
               <option value="ar">AR</option>
-              <option value="en">EN</option>
+              <option value="eng">EN</option>
             </select>
 
             <ToggleBtn setIsDark={setIsDark} />

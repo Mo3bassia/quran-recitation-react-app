@@ -1,7 +1,9 @@
-export default function SearchInput({ lang }) {
+export default function SearchInput({ lang, query, setQuery }) {
   return (
     <input
-      placeholder={lang === "en" ? "Search..." : "ابحث..."}
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+      placeholder={lang === "eng" ? "Search..." : "ابحث..."}
       className="w-full px-4 py-2 border rounded-md focus:outline-none transition duration-300 ease-in-out 
      border-gray-300 dark:border-gray-600 
      bg-transparent 
