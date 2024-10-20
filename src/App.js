@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Nav from "./components/Nav.js";
 import { useClasses } from "./hooks/useClasses.js";
 import { useLocalStorage } from "./hooks/useLocalStorage.js";
@@ -11,15 +11,28 @@ import NotFound from "./components/NotFound.js";
 export default function App() {
   const [lang, setLang] = useLocalStorage("eng");
   const [isDark, setIsDark] = useLocalStorage(false, "isDark");
-  const [reciters, setReciters] = useState([]);
+  const [reciters, setReciters] = useLocalStorage([], "reciters");
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [searchedItems, setSearchedItems] = useState([]);
+  const [navHeight, setNavHeight] = useState(0);
+  const [allSurahs, setAllSurahs] = useLocalStorage([], "allSurahs");
+  const [currentReciters, setCurrentReciters] = useState("");
+  const nav = useRef(null);
 
   const checkSearchedEmpty = searchedItems.length === 0;
 
   useEffect(
     function () {
+      if (currentReciters) document.body.style.overflow = "hidden";
+      return () => (document.body.style.overflow = "auto");
+    },
+    [currentReciters]
+  );
+
+  useEffect(
+    function () {
+      if (reciters.length !== 0 && allSurahs.length !== 0) return;
       async function getReciters() {
         setIsLoading(true);
         const response = await fetch(
@@ -27,6 +40,12 @@ export default function App() {
         );
         const data = await response.json();
         setReciters(data.reciters);
+
+        const responseForSurahs = await fetch(
+          `https://www.mp3quran.net/api/v3/suwar?language=${lang}`
+        );
+        const suras = await responseForSurahs.json();
+        setAllSurahs(suras.suwar);
         setIsLoading(false);
       }
       getReciters();
@@ -37,6 +56,12 @@ export default function App() {
   function resetAll() {
     setReciters([]);
     setSearchedItems([]);
+    setAllSurahs([]);
+    setCurrentReciters();
+  }
+
+  function goBack() {
+    setCurrentReciters();
   }
 
   useClasses(
@@ -64,7 +89,13 @@ export default function App() {
     [lang, isDark]
   );
 
-  console.log(query === "");
+  useEffect(
+    function () {
+      setNavHeight(nav.current.clientHeight);
+    },
+    [nav]
+  );
+  console.log(currentReciters);
   return (
     <>
       <Nav
@@ -73,11 +104,23 @@ export default function App() {
         setLang={setLang}
         setReciters={setReciters}
         resetAll={resetAll}
+        nav={nav}
+        goBack={goBack}
+        currentReciters={currentReciters}
       />
+      {currentReciters && (
+        <div
+          style={{
+            height: `calc( 100vh - ${navHeight}px`,
+            top: `${navHeight}px`,
+          }}
+          className={`z-50 fixed overflow-auto left-0 w-full bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50 container mx-auto p-4 pt-6 md:p-6 lg:p-12 transition-all`}
+        ></div>
+      )}
       <div
-        className={`min-h-screen bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50`}
+        className={`min-h-screen bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50 `}
       >
-        <div className="container mx-auto p-4 pt-6 md:p-6 lg:p-12  ">
+        <div className={`container mx-auto p-4 pt-6 md:p-6 lg:p-12`}>
           <NumberOfReciters lang={lang} reciters={reciters} />
           <SearchInput
             lang={lang}
@@ -109,7 +152,12 @@ export default function App() {
                 reciters
                   ?.sort((a, b) => +a.id - +b.id)
                   .map((reciter, index) => (
-                    <Reciter reciter={reciter} key={index} index={index} />
+                    <Reciter
+                      reciter={reciter}
+                      key={index}
+                      index={index}
+                      setCurrentReciters={setCurrentReciters}
+                    />
                   ))
               ) : (
                 searchedItems
