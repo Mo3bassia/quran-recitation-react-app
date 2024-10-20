@@ -18,6 +18,7 @@ module.exports = {
       flex: ["en", "ar"],
       fontFamily: {
         "noto-arabic": ['"Noto Sans Arabic"', "sans-serif"],
+        quran: ["quran"],
       },
     },
   },

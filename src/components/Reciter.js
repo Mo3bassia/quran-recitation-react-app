@@ -1,7 +1,14 @@
 export default function Reciter({ reciter, index, setCurrentReciters }) {
-  const surahs = reciter.moshaf[0].surah_list.split(",");
+  const server = reciter.moshaf[0].server;
+  const surahs = reciter.moshaf[0].surah_list
+    .split(",")
+    .map((sura) =>
+      sura < 10 ? `00${sura}` : sura >= 10 && sura < 100 ? `0${sura}` : sura
+    );
   function handleClick() {
-    setCurrentReciters((c) => (c === reciter ? null : reciter));
+    setCurrentReciters((c) =>
+      c === reciter ? null : { ...reciter, surahs, server }
+    );
   }
   return (
     <div

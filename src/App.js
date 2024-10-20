@@ -7,6 +7,7 @@ import NumberOfReciters from "./components/NumberOfReciters.js";
 import LoaderPost from "./components/LoaderPost.js";
 import Reciter from "./components/Reciter.js";
 import NotFound from "./components/NotFound.js";
+import Surah from "./components/Surah.js";
 
 export default function App() {
   const [lang, setLang] = useLocalStorage("eng");
@@ -95,7 +96,6 @@ export default function App() {
     },
     [nav]
   );
-  console.log(currentReciters);
   return (
     <>
       <Nav
@@ -114,8 +114,20 @@ export default function App() {
             height: `calc( 100vh - ${navHeight}px`,
             top: `${navHeight}px`,
           }}
-          className={`z-50 fixed overflow-auto left-0 w-full bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50 container mx-auto p-4 pt-6 md:p-6 lg:p-12 transition-all`}
-        ></div>
+          className={`z-50 fixed overflow-auto left-0 w-full bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50 `}
+        >
+          <div className="container mx-auto p-4 pt-6 md:p-6 lg:p-12">
+            {currentReciters.surahs.map((sura, index) => (
+              <Surah
+                lang={lang}
+                sura={sura}
+                currentReciters={currentReciters}
+                allSurahs={allSurahs}
+                key={sura}
+              />
+            ))}
+          </div>
+        </div>
       )}
       <div
         className={`min-h-screen bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50 `}
@@ -163,7 +175,12 @@ export default function App() {
                 searchedItems
                   ?.sort((a, b) => +a.id - +b.id)
                   .map((reciter, index) => (
-                    <Reciter reciter={reciter} key={index} index={index} />
+                    <Reciter
+                      reciter={reciter}
+                      key={index}
+                      index={index}
+                      setCurrentReciters={setCurrentReciters}
+                    />
                   ))
               )}
             </div>
