@@ -2,9 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
+/* الوضع الفاتح */
+audio::-webkit-media-controls-panel {
+  @apply bg-white; /* خلفية بيضاء */
+}
+
+audio::-webkit-media-controls-volume-slider {
+  @apply bg-gray-300  pl-2 pr-2; /* خلفية رمادية فاتحة */
+}
+
+/* الوضع المظلم */
+@media (prefers-color-scheme: dark) {
+  audio::-webkit-media-controls-panel {
+    @apply bg-[#1F1F1F]; /* خلفية رمادية داكنة */
+  }
+
+  audio::-webkit-media-controls-volume-slider {
+    @apply bg-gray-700  pl-2 pr-2; /* خلفية رمادية داكنة */
+  }
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Arabic:wght@100..900&display=swap");
 
 @font-face {
   font-family: "quran";
   src: url("../public/fonts/quran.ttf");
+}
+
+/* Input Range Styles */
+
+@layer components {
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    border-radius: 5px;
+    background: linear-gradient(
+      to right,
+      rgb(96 165 250 / var(--tw-bg-opacity)) 0%,
+      rgb(96 165 250 / var(--tw-bg-opacity)) var(--value),
+      rgb(107 114 128 / var(--tw-bg-opacity)) var(--value),
+      rgb(107 114 128 / var(--tw-bg-opacity)) 100%
+    );
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0.0000009px;
+    height: 1px;
+    background: #fff; /* لون المعرّف */
+    border: 2px solid #4caf50; /* لون الحدود */
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-runnable-track {
+    width: 1px;
+    visibility: hidden;
+  }
 }

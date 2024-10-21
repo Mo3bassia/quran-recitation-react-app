@@ -1,8 +1,9 @@
-export default function QuranSvg() {
+export default function QuranSvg({ size }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="w-12"
+      width={size}
+      height={size}
       viewBox="0 0 32 32"
       id="quran"
     >

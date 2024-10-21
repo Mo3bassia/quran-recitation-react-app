@@ -8,17 +8,31 @@ import LoaderPost from "./components/LoaderPost.js";
 import Reciter from "./components/Reciter.js";
 import NotFound from "./components/NotFound.js";
 import Surah from "./components/Surah.js";
+import AudioPlayer from "./components/AudioPlayer.js";
 
 export default function App() {
-  const [lang, setLang] = useLocalStorage("eng");
+  const [lang, setLang] = useLocalStorage("eng", "lang");
   const [isDark, setIsDark] = useLocalStorage(false, "isDark");
   const [reciters, setReciters] = useLocalStorage([], "reciters");
+  const [currentSurah, setCurrentSurah] = useLocalStorage("", "currentSurah");
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [searchedItems, setSearchedItems] = useState([]);
   const [navHeight, setNavHeight] = useState(0);
+  const [check, setCheck] = useState(false);
+  const [currentSurahIndex, setCurrentSurahIndex] = useLocalStorage(
+    "",
+    "currentSurahIndex"
+  );
   const [allSurahs, setAllSurahs] = useLocalStorage([], "allSurahs");
-  const [currentReciters, setCurrentReciters] = useState("");
+  const [currentReciters, setCurrentReciters] = useLocalStorage(
+    "",
+    "currentReciters"
+  );
+  const [playingReciter, setPlayingReciter] = useLocalStorage(
+    "",
+    "playingReciter"
+  );
   const nav = useRef(null);
 
   const checkSearchedEmpty = searchedItems.length === 0;
@@ -42,6 +56,27 @@ export default function App() {
         const data = await response.json();
         setReciters(data.reciters);
 
+        if (
+          data.reciters.filter((reciter) => reciter.id === playingReciter.id)[0]
+        )
+          setPlayingReciter(
+            data.reciters.filter(
+              (reciter) => reciter.id === playingReciter.id
+            )[0]
+          );
+        // console.log(
+        //   data.reciters.filter(
+        //     (reciter, index) => reciters.id === playingReciter.id
+        //   )[0].id
+        // );
+        // setPlayingReciter(
+        //   data.reciters[
+        //     data.reciters.filter(
+        //       (reciter, index) => reciters.id === playingReciter.id
+        //     )[0].id - 1
+        //   ]
+        // );
+
         const responseForSurahs = await fetch(
           `https://www.mp3quran.net/api/v3/suwar?language=${lang}`
         );
@@ -58,11 +93,17 @@ export default function App() {
     setReciters([]);
     setSearchedItems([]);
     setAllSurahs([]);
-    setCurrentReciters();
+    setCurrentReciters("");
+    // console.log(
+    //   reciters[
+    //     reciters.filter((reciter, index) => reciter.id === playingReciter.id)[0]
+    //       .id - 1
+    //   ].name
+    // );
   }
 
   function goBack() {
-    setCurrentReciters();
+    setCurrentReciters("");
   }
 
   useClasses(
@@ -117,6 +158,9 @@ export default function App() {
           className={`z-50 fixed overflow-auto left-0 w-full bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50 `}
         >
           <div className="container mx-auto p-4 pt-6 md:p-6 lg:p-12">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold pb-8 mb-8">
+              {currentReciters.name}
+            </h2>
             {currentReciters.surahs.map((sura, index) => (
               <Surah
                 lang={lang}
@@ -124,6 +168,10 @@ export default function App() {
                 currentReciters={currentReciters}
                 allSurahs={allSurahs}
                 key={sura}
+                setCurrentSurah={setCurrentSurah}
+                setCheck={setCheck}
+                setCurrentSurahIndex={setCurrentSurahIndex}
+                setPlayingReciter={setPlayingReciter}
               />
             ))}
           </div>
@@ -187,6 +235,14 @@ export default function App() {
           )}
         </div>
       </div>
+      <AudioPlayer
+        currentSurah={currentSurah}
+        check={check}
+        allSurahs={allSurahs}
+        currentSurahIndex={currentSurahIndex}
+        playingReciter={playingReciter}
+        lang={lang}
+      />
     </>
   );
 }

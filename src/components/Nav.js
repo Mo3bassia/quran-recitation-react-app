@@ -18,7 +18,7 @@ export default function Nav({
   return (
     <nav
       ref={nav}
-      className={`sticky top-0 z-50 bg-[#E5E7EB]  dark:bg-gray-800 dark:text-slate-100 text-gray-800 dark:text-gray-200`}
+      className={`sticky top-0 z-50 bg-[#E5E7EB]  dark:bg-gray-800 dark:text-slate-100 text-gray-800`}
     >
       <div className="container mx-auto py-6 px-3 sm:px-4 md:px-5">
         <div className="flex justify-between items-center">
