@@ -10,6 +10,20 @@ import NotFound from "./components/NotFound.js";
 import Surah from "./components/Surah.js";
 import AudioPlayer from "./components/AudioPlayer.js";
 
+export function addZero(num) {
+  return num < 10 ? `0${num}` : num;
+}
+
+export function getTime(seconds) {
+  let hours = Math.floor(seconds / 3600);
+  let minutes = Math.floor((seconds % 3600) / 60);
+  let secs = Math.floor(seconds % 60);
+  hours = addZero(hours);
+  minutes = addZero(minutes);
+  secs = addZero(secs);
+  return [secs, minutes, hours];
+}
+
 export default function App() {
   const [lang, setLang] = useLocalStorage("eng", "lang");
   const [isDark, setIsDark] = useLocalStorage(false, "isDark");
@@ -34,6 +48,7 @@ export default function App() {
     "playingReciter"
   );
   const nav = useRef(null);
+  const audioElement = useRef(null);
 
   const checkSearchedEmpty = searchedItems.length === 0;
 
@@ -126,7 +141,11 @@ export default function App() {
     function () {
       document.body.classList.add(lang);
       isDark && document.body.classList.add("dark");
-      return () => document.body.classList.remove("dark");
+      return () => {
+        document.body.classList.remove("dark");
+        document.body.classList.remove("eng");
+        document.body.classList.remove("ar");
+      };
     },
     [lang, isDark]
   );
@@ -140,6 +159,7 @@ export default function App() {
   return (
     <>
       <Nav
+        isLoading={isLoading}
         setIsDark={setIsDark}
         lang={lang}
         setLang={setLang}
@@ -155,7 +175,7 @@ export default function App() {
             height: `calc( 100vh - ${navHeight}px`,
             top: `${navHeight}px`,
           }}
-          className={`z-50 fixed overflow-auto left-0 w-full bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50 `}
+          className={`z-50 fixed overflow-auto left-0 w-full bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50 pb-16 `}
         >
           <div className="container mx-auto p-4 pt-6 md:p-6 lg:p-12">
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold pb-8 mb-8">
@@ -242,7 +262,9 @@ export default function App() {
         currentSurahIndex={currentSurahIndex}
         playingReciter={playingReciter}
         lang={lang}
+        audioElement={audioElement}
       />
+      <audio className="none" autoPlay={true} ref={audioElement}></audio>
     </>
   );
 }

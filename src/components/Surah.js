@@ -1,3 +1,4 @@
+import { useState } from "react";
 import QuranSvg from "./QuranSvg.js";
 export default function Surah({
   lang,
@@ -10,7 +11,8 @@ export default function Surah({
   setPlayingReciter,
 }) {
   const link = `${currentReciters.server}${sura}.mp3`;
-  function handleClick() {
+
+  function handleClick(e) {
     setCurrentSurahIndex(sura);
     setCurrentSurah(link);
     setCheck(true);
@@ -19,8 +21,8 @@ export default function Surah({
 
   return (
     <div
-      className="flex gap-5 items-center  hover:text-blue-400 mb-6 dark:border-slate-600 border-b-2 pb-6 justify-between cursor-pointer"
-      onClick={() => handleClick()}
+      className={`flex gap-5 items-center  hover:text-blue-400 mb-6 dark:border-slate-600 border-b-2 pb-6 justify-between cursor-pointer`}
+      onClick={(e) => handleClick(e)}
     >
       <p
         className={`${

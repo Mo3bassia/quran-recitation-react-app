@@ -2,23 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-/* الوضع الفاتح */
 audio::-webkit-media-controls-panel {
-  @apply bg-white; /* خلفية بيضاء */
+  @apply bg-white;
 }
 
 audio::-webkit-media-controls-volume-slider {
-  @apply bg-gray-300  pl-2 pr-2; /* خلفية رمادية فاتحة */
+  @apply bg-gray-300  pl-2 pr-2;
 }
 
-/* الوضع المظلم */
 @media (prefers-color-scheme: dark) {
   audio::-webkit-media-controls-panel {
-    @apply bg-[#1F1F1F]; /* خلفية رمادية داكنة */
+    @apply bg-[#1F1F1F];
   }
 
   audio::-webkit-media-controls-volume-slider {
-    @apply bg-gray-700  pl-2 pr-2; /* خلفية رمادية داكنة */
+    @apply bg-gray-700  pl-2 pr-2;
   }
 }
 
@@ -32,7 +30,11 @@ audio::-webkit-media-controls-volume-slider {
 /* Input Range Styles */
 
 @layer components {
+  body.ar input[type="range"] {
+    transform: rotate(180deg);
+  }
   input[type="range"] {
+    direction: ltr;
     -webkit-appearance: none;
     width: 100%;
     border-radius: 5px;
