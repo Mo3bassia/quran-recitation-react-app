@@ -25,7 +25,7 @@ export default function AudioPlayer({
     0,
     "currentDuration"
   );
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
 
   function handlePlaying() {
     handleToggle();
@@ -56,14 +56,13 @@ export default function AudioPlayer({
   });
 
   function handleChangeVolume(e) {
-    setVolume(e.target.value);
-    const max = e.target.max;
-    const percentage = (e.target.value / max) * 100;
-    e.target.style.setProperty("--value", `${percentage}%`);
+    audioElement.current.volume = e.target.value / 100;
+    // const max = e.target.max;
+    // const percentage = (e.target.value / max) * 100;
+    // e.target.style.setProperty("--value", `${percentage}%`);
   }
   function handleChangeAudio(e) {
     setAudioValue(getTime(e.target.value));
-    // console.log(audioElement.current.currentTime);
     audioElement.current.currentTime = e.target.value;
     const max = e.target.max;
     const percentage = (e.target.value / max) * 100;
@@ -73,6 +72,7 @@ export default function AudioPlayer({
     function () {
       // let audio = new Audio(currentSurah);
       if ((currentSurah, check)) {
+        audioElement.current.volume = volume / 100;
         // console.log("Click");
         audioElement.current.preload = "true";
         audioElement.current.autoplay = "true";
@@ -84,8 +84,8 @@ export default function AudioPlayer({
         // console.log(currentSurah);
         audioElement.current.src = currentSurah;
         audioElement.current.currentTime = audioValue;
+        audioElement.current.volume = volume / 100;
         // audioElement.current.play();
-        setIsPlaying((is) => !is);
       }
       audioElement.onplay = function () {
         // console.log(currentSurahIndex);
@@ -100,6 +100,11 @@ export default function AudioPlayer({
   let [secondsCurrent, minutesCurrent, hoursCurrent] = getTime(audioValue);
   let [secondsDuration, minutesDuration, hoursDuration] =
     getTime(currentDuraion);
+
+  function setVolumeSound(vol) {
+    setVolume(vol);
+    audioElement.current.volume = vol / 100;
+  }
 
   return (
     <>
@@ -151,20 +156,39 @@ export default function AudioPlayer({
 
         <span>{`${hoursDuration}:${minutesDuration}:${secondsDuration}`}</span>
         <div className="flex items-center gap-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
-            />
-          </svg>
+          {volume != 0 ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-8"
+              onClick={() => setVolumeSound(0)}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-8"
+              onClick={() => setVolumeSound(100)}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17.25 9.75 19.5 12m0 0 2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6 4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
+              />
+            </svg>
+          )}
           <RangeInput
             lang={lang}
             max={100}

@@ -192,6 +192,8 @@ export default function App() {
                 setCheck={setCheck}
                 setCurrentSurahIndex={setCurrentSurahIndex}
                 setPlayingReciter={setPlayingReciter}
+                currentSurah={currentSurahIndex}
+                playingReciter={playingReciter}
               />
             ))}
           </div>
