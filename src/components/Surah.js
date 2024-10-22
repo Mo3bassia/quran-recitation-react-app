@@ -19,10 +19,8 @@ export default function Surah({
     setCheck(true);
     setPlayingReciter(currentReciters);
   }
-  console.log(currentSurah);
 
   function handleDownload() {
-    console.log(currentReciters);
     const title =
       lang === "eng"
         ? `Sura ${allSurahs[+sura - 1].name} - ${currentReciters.name}`
@@ -51,7 +49,6 @@ export default function Surah({
     handleDownload();
   }
 
-  console.log(playingReciter);
   return (
     <div
       className={`flex gap-5 items-center   mb-6 dark:border-slate-600 border-b-2 pb-6 justify-between cursor-pointer`}

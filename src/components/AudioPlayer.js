@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import QuranSvg from "./QuranSvg.js";
 import RangeInput from "./RangeInput.js";
 import { useLocalStorage } from "../hooks/useLocalStorage.js";
@@ -25,7 +25,8 @@ export default function AudioPlayer({
     0,
     "currentDuration"
   );
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const pauseAndPlay = useRef(null);
 
   function handlePlaying() {
     handleToggle();
@@ -78,10 +79,12 @@ export default function AudioPlayer({
         audioElement.current.autoplay = "true";
         audioElement.current.src = currentSurah;
         // console.log(audioElement.duration);
+        setIsPlaying(true);
         // console.log(audioElement.src);
         audioElement.current.play();
       } else if (currentSurah && !check) {
         // console.log(currentSurah);
+        setIsPlaying(false);
         audioElement.current.src = currentSurah;
         audioElement.current.currentTime = audioValue;
         audioElement.current.volume = volume / 100;
@@ -95,7 +98,7 @@ export default function AudioPlayer({
       //   audioElement.current.pause();
       // };
     },
-    [currentSurah, check, playingReciter.id]
+    [currentSurah, check, playingReciter.id, pauseAndPlay.current]
   );
   let [secondsCurrent, minutesCurrent, hoursCurrent] = getTime(audioValue);
   let [secondsDuration, minutesDuration, hoursDuration] =
@@ -133,7 +136,7 @@ export default function AudioPlayer({
             )}
           </div>
         </div>
-        {isPlaying ? (
+        {!isPlaying ? (
           <PlayIcon onClick={() => handlePlaying()} />
         ) : (
           <PauseIcon onClick={() => handlePausing()} />
