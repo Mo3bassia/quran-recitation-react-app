@@ -72,18 +72,6 @@ export default function App() {
               (reciter) => reciter.id === playingReciter.id
             )[0]
           );
-        // console.log(
-        //   data.reciters.filter(
-        //     (reciter, index) => reciters.id === playingReciter.id
-        //   )[0].id
-        // );
-        // setPlayingReciter(
-        //   data.reciters[
-        //     data.reciters.filter(
-        //       (reciter, index) => reciters.id === playingReciter.id
-        //     )[0].id - 1
-        //   ]
-        // );
 
         const responseForSurahs = await fetch(
           `https://www.mp3quran.net/api/v3/suwar?language=${lang}`
@@ -163,6 +151,7 @@ export default function App() {
       />
       {currentReciters && (
         <SuwarContainer
+          currentSurahIndex={currentSurahIndex}
           currentReciters={currentReciters}
           navHeight={navHeight}
           lang={lang}

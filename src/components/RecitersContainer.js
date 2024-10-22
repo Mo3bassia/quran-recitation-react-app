@@ -1,5 +1,5 @@
 import NumberOfReciters from "./NumberOfReciters.js";
-import SearchInput from "./SearchInput.js";
+import SearchReciter from "./SearchReciter.js";
 import LoaderPost from "./LoaderPost.js";
 import Reciter from "./Reciter.js";
 import NotFound from "./NotFound.js";
@@ -22,7 +22,7 @@ export default function RecitersContainer({
     >
       <div className={`container mx-auto p-4 pt-6 md:p-6 lg:p-12`}>
         <NumberOfReciters lang={lang} reciters={reciters} />
-        <SearchInput
+        <SearchReciter
           lang={lang}
           query={query}
           setQuery={setQuery}

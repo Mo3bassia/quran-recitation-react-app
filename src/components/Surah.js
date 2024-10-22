@@ -9,6 +9,7 @@ export default function Surah({
   setCurrentSurahIndex,
   setPlayingReciter,
   currentSurah,
+  currentSurahIndex,
   playingReciter,
 }) {
   const link = `${currentReciters.server}${sura}.mp3`;
@@ -57,7 +58,8 @@ export default function Surah({
         className={`${
           lang !== "eng" ? "font-quran text-5xl" : "text-xl lg:text-2xl"
         } flex-grow hover:text-blue-400 ${
-          currentSurah === sura && playingReciter.name === currentReciters.name
+          currentSurahIndex === sura &&
+          playingReciter.name === currentReciters.name
             ? "text-blue-400"
             : ""
         }`}
