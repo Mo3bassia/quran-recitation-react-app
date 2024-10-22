@@ -2,13 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import Nav from "./components/Nav.js";
 import { useClasses } from "./hooks/useClasses.js";
 import { useLocalStorage } from "./hooks/useLocalStorage.js";
-import SearchInput from "./components/SearchInput.js";
-import NumberOfReciters from "./components/NumberOfReciters.js";
-import LoaderPost from "./components/LoaderPost.js";
-import Reciter from "./components/Reciter.js";
-import NotFound from "./components/NotFound.js";
-import Surah from "./components/Surah.js";
 import AudioPlayer from "./components/AudioPlayer.js";
+import RecitersContainer from "./components/RecitersContainer.js";
+import SuwarContainer from "./components/SuwarContainer.js";
 
 export function addZero(num) {
   return num < 10 ? `0${num}` : num;
@@ -29,7 +25,6 @@ export default function App() {
   const [isDark, setIsDark] = useLocalStorage(false, "isDark");
   const [reciters, setReciters] = useLocalStorage([], "reciters");
   const [currentSurah, setCurrentSurah] = useLocalStorage("", "currentSurah");
-  const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [searchedItems, setSearchedItems] = useState([]);
   const [navHeight, setNavHeight] = useState(0);
@@ -49,8 +44,6 @@ export default function App() {
   );
   const nav = useRef(null);
   const audioElement = useRef(null);
-
-  const checkSearchedEmpty = searchedItems.length === 0;
 
   useEffect(
     function () {
@@ -163,100 +156,33 @@ export default function App() {
         setIsDark={setIsDark}
         lang={lang}
         setLang={setLang}
-        setReciters={setReciters}
         resetAll={resetAll}
         nav={nav}
         goBack={goBack}
         currentReciters={currentReciters}
       />
       {currentReciters && (
-        <div
-          style={{
-            height: `calc( 100vh - ${navHeight}px`,
-            top: `${navHeight}px`,
-          }}
-          className={`z-50 fixed overflow-auto left-0 w-full bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50 pb-16 `}
-        >
-          <div className="container mx-auto p-4 pt-6 md:p-6 lg:p-12">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold pb-8 mb-8">
-              {currentReciters.name}
-            </h2>
-            {currentReciters.surahs.map((sura, index) => (
-              <Surah
-                lang={lang}
-                sura={sura}
-                currentReciters={currentReciters}
-                allSurahs={allSurahs}
-                key={sura}
-                setCurrentSurah={setCurrentSurah}
-                setCheck={setCheck}
-                setCurrentSurahIndex={setCurrentSurahIndex}
-                setPlayingReciter={setPlayingReciter}
-                currentSurah={currentSurahIndex}
-                playingReciter={playingReciter}
-              />
-            ))}
-          </div>
-        </div>
+        <SuwarContainer
+          currentReciters={currentReciters}
+          navHeight={navHeight}
+          lang={lang}
+          allSurahs={allSurahs}
+          setCurrentSurah={setCurrentSurah}
+          setCheck={setCheck}
+          setCurrentSurahIndex={setCurrentSurahIndex}
+          setPlayingReciter={setPlayingReciter}
+          currentSurah={currentSurah}
+          playingReciter={playingReciter}
+        />
       )}
-      <div
-        className={`min-h-screen bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50 `}
-      >
-        <div className={`container mx-auto p-4 pt-6 md:p-6 lg:p-12`}>
-          <NumberOfReciters lang={lang} reciters={reciters} />
-          <SearchInput
-            lang={lang}
-            query={query}
-            setQuery={setQuery}
-            searchedItems={searchedItems}
-            setSearchedItems={setSearchedItems}
-            reciters={reciters}
-            checkSearchedEmpty={checkSearchedEmpty}
-            isLoading={isLoading}
-          />
-          {isLoading ? (
-            <div className="flex justify-center items-center gap-5 flex-wrap">
-              <LoaderPost />
-              <LoaderPost />
-              <LoaderPost />
-              <LoaderPost />
-              <LoaderPost />
-              <LoaderPost />
-              <LoaderPost />
-              <LoaderPost />
-              <LoaderPost />
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8">
-              {searchedItems.length === 0 && query !== "" ? (
-                <NotFound />
-              ) : searchedItems.length === 0 && query === "" ? (
-                reciters
-                  ?.sort((a, b) => +a.id - +b.id)
-                  .map((reciter, index) => (
-                    <Reciter
-                      reciter={reciter}
-                      key={index}
-                      index={index}
-                      setCurrentReciters={setCurrentReciters}
-                    />
-                  ))
-              ) : (
-                searchedItems
-                  ?.sort((a, b) => +a.id - +b.id)
-                  .map((reciter, index) => (
-                    <Reciter
-                      reciter={reciter}
-                      key={index}
-                      index={index}
-                      setCurrentReciters={setCurrentReciters}
-                    />
-                  ))
-              )}
-            </div>
-          )}
-        </div>
-      </div>
+      <RecitersContainer
+        lang={lang}
+        reciters={reciters}
+        searchedItems={searchedItems}
+        setSearchedItems={setSearchedItems}
+        isLoading={isLoading}
+        setCurrentReciters={setCurrentReciters}
+      />
       <AudioPlayer
         currentSurah={currentSurah}
         check={check}

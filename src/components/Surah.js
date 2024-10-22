@@ -62,7 +62,6 @@ export default function Surah({
             : ""
         }`}
         onClick={(e) => handleClick(e)}
-        key={sura}
       >
         {lang === "eng" ? (
           <span className="font-bold">

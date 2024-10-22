@@ -1,12 +1,11 @@
 import ToggleBtn from "./ToggleBtn.js";
 import ReturnBtn from "./ReturnBtn.js";
-import QuranSvg from "./QuranSvg.js";
+import Logo from "./Logo.js";
 
 export default function Nav({
   setIsDark,
   lang,
   setLang,
-  setReciters,
   resetAll,
   nav,
   currentReciters,
@@ -24,13 +23,7 @@ export default function Nav({
     >
       <div className="container mx-auto py-6 px-3 sm:px-4 md:px-5">
         <div className="flex justify-between items-center">
-          <a
-            className=" font-bold text-xl sm:text-xl md:text-2xl lg:text-4xl flex items-center gap-5"
-            href="#"
-          >
-            <QuranSvg size={40} />
-            <span>{lang === "eng" ? "Quran Recitation" : "صوت القرآن"}</span>
-          </a>
+          <Logo />
           <div className="flex items-center gap-2">
             <select
               disabled={isLoading ? true : false}

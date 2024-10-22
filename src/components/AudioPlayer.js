@@ -112,14 +112,17 @@ export default function AudioPlayer({
   return (
     <>
       <div className="flex items-center sticky w-full bottom-0 bg-[#E5E7EB]  dark:bg-gray-800 dark:text-slate-100 text-gray-800 p-5 gap-5 z-[9999]">
-        <div className="flex gap-5 items-center min-w-56">
+        <div className="flex gap-5 items-center min-w-36 lg:min-w-56">
           <div className="rounded-full w-12 h-12 flex items-center justify-center bg-blue-400 ">
             <QuranSvg size={24} />
           </div>
           <div>
             {lang === "eng" ? (
               <>
-                <p className="dark:text-slate-200 text-gray-900 font-bold">
+                <p
+                  className="dark:text-slate-200 text-gray-900 font-bold"
+                  sura={`sura-${allSurahs[+currentSurahIndex - 1]?.id}`}
+                >
                   Sura {allSurahs[+currentSurahIndex - 1]?.name}
                 </p>
                 <p className="dark:text-slate-400 text-gray-500">
@@ -128,7 +131,9 @@ export default function AudioPlayer({
               </>
             ) : (
               <>
-                <p>سورة {allSurahs[+currentSurahIndex - 1]?.name}</p>
+                <p sura={`sura-${allSurahs[+currentSurahIndex - 1]?.id}`}>
+                  سورة {allSurahs[+currentSurahIndex - 1]?.name}
+                </p>
                 <p className="dark:text-slate-400 text-gray-500">
                   {playingReciter.name}
                 </p>
@@ -141,7 +146,11 @@ export default function AudioPlayer({
         ) : (
           <PauseIcon onClick={() => handlePausing()} />
         )}
-        <span className="">{`${hoursCurrent}:${minutesCurrent}:${secondsCurrent}`}</span>
+        <div className="flex gap-3 font-[Montserrat]">
+          <span className="">{`${hoursCurrent}:${minutesCurrent}:${secondsCurrent}`}</span>
+          <span> / </span>
+          <span>{`${hoursDuration}:${minutesDuration}:${secondsDuration}`}</span>
+        </div>
         <RangeInput
           max={
             audioElement.current?.duration ? audioElement.current?.duration : 0
@@ -157,7 +166,6 @@ export default function AudioPlayer({
           currentPercent={currentPercent}
         />
 
-        <span>{`${hoursDuration}:${minutesDuration}:${secondsDuration}`}</span>
         <div className="flex items-center gap-4">
           {volume != 0 ? (
             <svg
