@@ -2,10 +2,8 @@ export default function SearchInput({
   lang,
   query,
   setQuery,
-  searchedItems,
   setSearchedItems,
   reciters,
-  checkSearchedEmpty,
   isLoading,
 }) {
   function handleSearch(e) {

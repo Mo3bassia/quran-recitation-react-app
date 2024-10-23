@@ -30,8 +30,6 @@ export default function SuwarContainer({
       })
   );
 
-  // console.log(currentReciters.surahs);
-  // console.log(findSurahs);
   return (
     <div
       style={{

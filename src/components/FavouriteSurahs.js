@@ -12,8 +12,6 @@ export default function FavouriteSurahs({
   reciters,
 }) {
   function handleRemove(favItem) {
-    // console.log(favItem);
-    // console.log(favourite);
     setFavourite(
       favourite.filter(
         (fav) =>

@@ -9,17 +9,6 @@ export default function SearchSura({
   findSurahs,
   setFindSurahs,
 }) {
-  //   console.log(currentReciters.surahs);
-  //   console.log(allSurahs[+currentReciters.surahs]);
-
-  //   useEffect(function () {
-  //     setFindSurahs(
-  //       findSurahs.map((sura) => {
-  //         return { ...allSurahs[+sura - 1] };
-  //       })
-  //     );
-  //   });
-
   function handleSearch(e) {
     setQuery(e.target.value);
     let arr = currentReciters.surahs.map((sura) => {

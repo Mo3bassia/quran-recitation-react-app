@@ -29,26 +29,26 @@ export default function RecitersContainer({
       className={`min-h-screen bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50 `}
     >
       <div className={`container mx-auto p-4 pt-6 md:p-6 lg:p-12`}>
-        <FavouriteSurahs
-          reciters={reciters}
-          lang={lang}
-          setPlayingReciter={setPlayingReciter}
-          favourite={favourite}
-          setFavourite={setFavourite}
-          allSurahs={allSurahs}
-          setCheck={setCheck}
-          setCurrentSurah={setCurrentSurah}
-          setCurrentSurahIndex={setCurrentSurahIndex}
-        />
+        {favourite.length > 0 && (
+          <FavouriteSurahs
+            reciters={reciters}
+            lang={lang}
+            setPlayingReciter={setPlayingReciter}
+            favourite={favourite}
+            setFavourite={setFavourite}
+            allSurahs={allSurahs}
+            setCheck={setCheck}
+            setCurrentSurah={setCurrentSurah}
+            setCurrentSurahIndex={setCurrentSurahIndex}
+          />
+        )}
         <NumberOfReciters lang={lang} reciters={reciters} />
         <SearchReciter
           lang={lang}
           query={query}
           setQuery={setQuery}
-          searchedItems={searchedItems}
           setSearchedItems={setSearchedItems}
           reciters={reciters}
-          checkSearchedEmpty={checkSearchedEmpty}
           isLoading={isLoading}
         />
         {isLoading ? (

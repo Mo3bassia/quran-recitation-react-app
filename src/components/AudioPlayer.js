@@ -72,7 +72,6 @@ export default function AudioPlayer({
   }
   useEffect(
     function () {
-      // let audio = new Audio(currentSurah);
       if ((currentSurah, check)) {
         audioElement.current.volume = volume / 100;
         audioElement.current.preload = "true";
@@ -88,10 +87,6 @@ export default function AudioPlayer({
       audioElement.current.onplay = function () {
         setIsPlaying(true);
       };
-
-      // return () => {
-      //   audioElement.current.pause();
-      // };
     },
     [currentSurah, check, playingReciter.id, pauseAndPlay.current]
   );
@@ -146,25 +141,6 @@ export default function AudioPlayer({
           </div>
 
           <div className="relative w-full flex gap-1 md:gap-2 lg:gap-3 items-center">
-            {/* <div
-              className={`absolute translate-x-1/2 md:hidden text-[14px]  text-sm p-2 rounded-lg pointer-events-none text-slate-100 font-bold z-[99999] `}
-              style={{
-                left:
-                  lang === "eng" &&
-                  `${
-                    (audioElement.current?.currentTime /
-                      audioElement.current?.duration) *
-                    100
-                  }%`,
-                right:
-                  lang !== "eng" &&
-                  `${
-                    (audioElement.current?.currentTime /
-                      audioElement.current?.duration) *
-                    100
-                  }%`,
-              }}
-            ></div> */}
             <div
               className={`absolute md:hidden text-[14px]  text-sm p-2 rounded-lg pointer-events-none text-slate-100 font-bold z-[99999] `}
               style={{

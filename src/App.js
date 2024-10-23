@@ -91,12 +91,6 @@ export default function App() {
     setSearchedItems([]);
     setAllSurahs([]);
     setCurrentReciters("");
-    // console.log(
-    //   reciters[
-    //     reciters.filter((reciter, index) => reciter.id === playingReciter.id)[0]
-    //       .id - 1
-    //   ].name
-    // );
   }
 
   function goBack() {
