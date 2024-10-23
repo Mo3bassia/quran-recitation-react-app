@@ -147,9 +147,9 @@ export default function AudioPlayer({
             </div>
           </div>
 
-          <div className="relative w-full group">
+          <div className="relative w-full group flex gap-1 md:gap-2 lg:gap-3 items-center">
             <div
-              className={`absolute bottom-[calc(100% - 10px)] bg-slate-100 text-slate-800 text-sm p-2 rounded-lg shadow-lg dark:bg-slate-900 dark:text-slate-100 font-bold z-[99999] hidden group-hover:block md:group-hover:hidden`}
+              className={`absolute  bg-slate-100 text-slate-800 text-sm p-2 rounded-lg shadow-lg dark:bg-slate-900 dark:text-slate-100 font-bold z-[99999] hidden group-hover:block md:group-hover:hidden`}
               style={{
                 left: `${
                   (audioElement.current?.currentTime /
@@ -157,9 +157,10 @@ export default function AudioPlayer({
                   100
                 }%`,
                 transform: `translateX(-50%)`,
+                bottom: "calc(100%)",
               }}
             >
-              <div className="flex gap-1 md:gap-2 lg:gap-3 font-[Montserrat]">
+              <div className=" font-[Montserrat]">
                 <span className="">{`${hoursCurrent}:${minutesCurrent}:${secondsCurrent}`}</span>
                 <span> / </span>
                 <span>{`${hoursDuration}:${minutesDuration}:${secondsDuration}`}</span>
