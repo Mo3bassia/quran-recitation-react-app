@@ -13,18 +13,17 @@ export default function SearchInput({
       setSearchedItems([]);
     } else {
       setSearchedItems(
-        reciters.filter(
-          (reciter) =>
-            reciter.name
-              .toLowerCase()
-              .replaceAll("إ", "ا")
-              .replaceAll("أ", "ا")
-              .indexOf(
-                e.target.value
-                  .toLowerCase()
-                  .replaceAll("إ", "ا")
-                  .replaceAll("أ", "ا")
-              ) > -1
+        reciters.filter((reciter) =>
+          reciter.name
+            .toLowerCase()
+            .replaceAll("إ", "ا")
+            .replaceAll("أ", "ا")
+            .includes(
+              e.target.value
+                .toLowerCase()
+                .replaceAll("إ", "ا")
+                .replaceAll("أ", "ا")
+            )
         )
       );
     }

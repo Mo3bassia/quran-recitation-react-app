@@ -36,7 +36,6 @@ audio::-webkit-media-controls-volume-slider {
   input[type="range"] {
     direction: ltr;
     -webkit-appearance: none;
-    width: 100%;
     border-radius: 5px;
     background: linear-gradient(
       to right,

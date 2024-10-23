@@ -23,7 +23,7 @@ export default function Nav({
     >
       <div className="container mx-auto py-6 px-3 sm:px-4 md:px-5">
         <div className="flex justify-between items-center">
-          <Logo />
+          <Logo lang={lang} />
           <div className="flex items-center gap-2">
             <select
               disabled={isLoading ? true : false}

@@ -27,8 +27,20 @@ export default function SearchSura({
       console.log(allSurahs[+sura - 1]);
       return allSurahs[+sura - 1];
     });
-    console.log(arr);
-    setFindSurahs(arr.filter((sura) => sura.name.includes(e.target.value)));
+    setFindSurahs(
+      arr.filter((sura) =>
+        sura.name
+          .toLowerCase()
+          .replaceAll("إ", "ا")
+          .replaceAll("أ", "ا")
+          .includes(
+            e.target.value
+              .toLowerCase()
+              .replaceAll("إ", "ا")
+              .replaceAll("أ", "ا")
+          )
+      )
+    );
   }
   return (
     <input

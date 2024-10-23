@@ -7,7 +7,7 @@ export default function PlayIcon({ onClick }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="size-12 cursor-pointer"
+      className="size-12 cursor-pointer min-w-6 min-h-6"
     >
       <path
         strokeLinecap="round"
