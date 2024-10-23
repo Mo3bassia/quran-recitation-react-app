@@ -4,6 +4,8 @@ import { useState } from "react";
 
 export default function SuwarContainer({
   currentReciters,
+  favourite,
+  setFavourite,
   navHeight,
   lang,
   allSurahs,
@@ -54,9 +56,12 @@ export default function SuwarContainer({
         {findSurahs.length == currentReciters.surahs.length
           ? currentReciters.surahs.map((sura, index) => (
               <Surah
+                favourite={favourite}
+                setFavourite={setFavourite}
                 key={sura}
                 lang={lang}
                 sura={sura}
+                suraIn={sura}
                 currentReciters={currentReciters}
                 allSurahs={allSurahs}
                 setCurrentSurah={setCurrentSurah}
@@ -70,9 +75,12 @@ export default function SuwarContainer({
             ))
           : findSurahs.map((sura, index) => (
               <Surah
+                favourite={favourite}
+                setFavourite={setFavourite}
                 key={sura.id}
                 lang={lang}
                 sura={sura.id}
+                suraIn={sura}
                 currentReciters={currentReciters}
                 allSurahs={allSurahs}
                 setCurrentSurah={setCurrentSurah}

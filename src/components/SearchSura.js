@@ -22,14 +22,16 @@ export default function SearchSura({
 
   function handleSearch(e) {
     setQuery(e.target.value);
-    console.log(allSurahs);
     let arr = currentReciters.surahs.map((sura) => {
-      console.log(allSurahs[+sura - 1]);
-      return allSurahs[+sura - 1];
+      return { ...allSurahs[+sura - 1] };
     });
     setFindSurahs(
-      arr.filter((sura) =>
-        sura.name
+      arr.filter((sura) => {
+        let myName =
+          lang !== "eng" && !sura.name.startsWith("سورة")
+            ? "سورة " + sura.name
+            : "sura " + sura.name;
+        return myName
           .toLowerCase()
           .replaceAll("إ", "ا")
           .replaceAll("أ", "ا")
@@ -38,8 +40,8 @@ export default function SearchSura({
               .toLowerCase()
               .replaceAll("إ", "ا")
               .replaceAll("أ", "ا")
-          )
-      )
+          );
+      })
     );
   }
   return (

@@ -42,27 +42,29 @@ export default function AudioPlayer({
   }
 
   audioElement.current?.addEventListener("volumechange", function () {
-    setVolume(audioElement.current.volume * 100);
+    if (!check) setVolume(audioElement.current.volume * 100);
   });
 
   audioElement.current?.addEventListener("timeupdate", function () {
     const currentTime = audioElement.current.currentTime;
-
     setCurrentPercent(
       (audioElement.current.currentTime / audioElement.current.duration) * 100
     );
-
     setAudioValue(currentTime);
     setCurrentDuraion(audioElement.current.duration);
   });
 
   function handleChangeVolume(e) {
     audioElement.current.volume = e.target.value / 100;
-    // const max = e.target.max;
-    // const percentage = (e.target.value / max) * 100;
-    // e.target.style.setProperty("--value", `${percentage}%`);
+    if (!check) {
+      audioElement.current.play();
+      setIsPlaying(true);
+    }
   }
   function handleChangeAudio(e) {
+    audioElement.current.play();
+    console.log("he");
+    setIsPlaying(true);
     setAudioValue(getTime(e.target.value));
     audioElement.current.currentTime = e.target.value;
     const max = e.target.max;
@@ -74,24 +76,18 @@ export default function AudioPlayer({
       // let audio = new Audio(currentSurah);
       if ((currentSurah, check)) {
         audioElement.current.volume = volume / 100;
-        // console.log("Click");
         audioElement.current.preload = "true";
         audioElement.current.autoplay = "true";
         audioElement.current.src = currentSurah;
-        // console.log(audioElement.duration);
         setIsPlaying(true);
-        // console.log(audioElement.src);
         audioElement.current.play();
       } else if (currentSurah && !check) {
-        // console.log(currentSurah);
-        setIsPlaying(false);
         audioElement.current.src = currentSurah;
         audioElement.current.currentTime = audioValue;
         audioElement.current.volume = volume / 100;
-        // audioElement.current.play();
       }
-      audioElement.onplay = function () {
-        // console.log(currentSurahIndex);
+      audioElement.current.onplay = function () {
+        setIsPlaying(true);
       };
 
       // return () => {
@@ -109,6 +105,7 @@ export default function AudioPlayer({
     audioElement.current.volume = vol / 100;
   }
 
+  console.log(isPlaying);
   return (
     <>
       <div className=" sticky w-full bottom-0 bg-[#E5E7EB]  dark:bg-gray-800 dark:text-slate-100 text-gray-800 md:px-5 px-2  py-5 z-[9999]">
@@ -135,7 +132,10 @@ export default function AudioPlayer({
                 </>
               ) : (
                 <>
-                  <p sura={`sura-${allSurahs[+currentSurahIndex - 1]?.id}`}>
+                  <p
+                    sura={`sura-${allSurahs[+currentSurahIndex - 1]?.id}`}
+                    className="flex gap-1"
+                  >
                     <span className="hidden md:block">سورة</span>{" "}
                     {allSurahs[+currentSurahIndex - 1]?.name}
                   </p>
@@ -148,6 +148,25 @@ export default function AudioPlayer({
           </div>
 
           <div className="relative w-full flex gap-1 md:gap-2 lg:gap-3 items-center">
+            {/* <div
+              className={`absolute translate-x-1/2 md:hidden text-[14px]  text-sm p-2 rounded-lg pointer-events-none text-slate-100 font-bold z-[99999] `}
+              style={{
+                left:
+                  lang === "eng" &&
+                  `${
+                    (audioElement.current?.currentTime /
+                      audioElement.current?.duration) *
+                    100
+                  }%`,
+                right:
+                  lang !== "eng" &&
+                  `${
+                    (audioElement.current?.currentTime /
+                      audioElement.current?.duration) *
+                    100
+                  }%`,
+              }}
+            ></div> */}
             <div
               className={`absolute md:hidden text-[14px]  text-sm p-2 rounded-lg pointer-events-none text-slate-100 font-bold z-[99999] `}
               style={{
@@ -156,15 +175,31 @@ export default function AudioPlayer({
               }}
             >
               <div className=" font-[Montserrat]">
-                <span className="">{`${hoursCurrent}:${minutesCurrent}:${secondsCurrent}`}</span>
+                <span className="">
+                  {hoursCurrent == "00" && hoursDuration == "00"
+                    ? `${minutesCurrent}:${secondsCurrent}`
+                    : `${hoursCurrent}:${minutesCurrent}:${secondsCurrent}`}
+                </span>
                 <span> / </span>
-                <span>{`${hoursDuration}:${minutesDuration}:${secondsDuration}`}</span>
+                <span>
+                  {hoursCurrent == "00" && hoursDuration == "00"
+                    ? `${minutesDuration}:${secondsDuration}`
+                    : `${hoursDuration}:${minutesDuration}:${secondsDuration}`}
+                </span>
               </div>
             </div>
             <div className="hidden gap-1 md:gap-2 lg:gap-3 font-[Montserrat] md:flex">
-              <span className="">{`${hoursCurrent}:${minutesCurrent}:${secondsCurrent}`}</span>
+              <span className="">
+                {hoursCurrent == "00" && hoursDuration == "00"
+                  ? `${minutesCurrent}:${secondsCurrent}`
+                  : `${hoursCurrent}:${minutesCurrent}:${secondsCurrent}`}
+              </span>
               <span> / </span>
-              <span>{`${hoursDuration}:${minutesDuration}:${secondsDuration}`}</span>
+              <span>
+                {hoursCurrent == "00" && hoursDuration == "00"
+                  ? `${minutesDuration}:${secondsDuration}`
+                  : `${hoursDuration}:${minutesDuration}:${secondsDuration}`}
+              </span>
             </div>
             <RangeInput
               max={
@@ -178,10 +213,11 @@ export default function AudioPlayer({
                   ? audioElement.current?.currentTime
                   : 0
               }
-              onChange={handleChangeAudio}
+              onChange={(e) => handleChangeAudio(e)}
               height={19}
-              className="w-full"
+              className={`w-full ${lang === "ar" ? "rotate-180" : ""} `}
               currentPercent={currentPercent}
+              disabled={!isPlaying ? true : ""}
             />
           </div>
           <div className="flex items-center gap-4 relative group">
@@ -192,7 +228,7 @@ export default function AudioPlayer({
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-4 md:size-6 cursor-pointer my-3 "
+                className="size-4 md:size-6 cursor-pointer my-4  md:my-3 "
                 onClick={() => setVolumeSound(0)}
               >
                 <path
@@ -208,7 +244,7 @@ export default function AudioPlayer({
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-4 md:size-6 cursor-pointer  my-3 "
+                className="size-4 md:size-6 cursor-pointer my-4  md:my-3 "
                 onClick={() => setVolumeSound(100)}
               >
                 <path

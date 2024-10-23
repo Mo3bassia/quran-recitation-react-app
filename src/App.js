@@ -23,6 +23,7 @@ export function getTime(seconds) {
 export default function App() {
   const [lang, setLang] = useLocalStorage("eng", "lang");
   const [isDark, setIsDark] = useLocalStorage(false, "isDark");
+  const [favourite, setFavourite] = useLocalStorage([], "favourite");
   const [reciters, setReciters] = useLocalStorage([], "reciters");
   const [currentSurah, setCurrentSurah] = useLocalStorage("", "currentSurah");
   const [isLoading, setIsLoading] = useState(false);
@@ -151,6 +152,8 @@ export default function App() {
       />
       {currentReciters && (
         <SuwarContainer
+          favourite={favourite}
+          setFavourite={setFavourite}
           currentSurahIndex={currentSurahIndex}
           currentReciters={currentReciters}
           navHeight={navHeight}
@@ -165,6 +168,13 @@ export default function App() {
         />
       )}
       <RecitersContainer
+        setPlayingReciter={setPlayingReciter}
+        setCheck={setCheck}
+        setCurrentSurah={setCurrentSurah}
+        setCurrentSurahIndex={setCurrentSurahIndex}
+        setFavourite={setFavourite}
+        allSurahs={allSurahs}
+        favourite={favourite}
         lang={lang}
         reciters={reciters}
         searchedItems={searchedItems}

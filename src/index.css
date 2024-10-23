@@ -30,9 +30,6 @@ audio::-webkit-media-controls-volume-slider {
 /* Input Range Styles */
 
 @layer components {
-  body.ar input[type="range"] {
-    transform: rotate(180deg);
-  }
   input[type="range"] {
     direction: ltr;
     -webkit-appearance: none;
