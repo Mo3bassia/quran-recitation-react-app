@@ -63,7 +63,6 @@ export default function AudioPlayer({
   }
   function handleChangeAudio(e) {
     audioElement.current.play();
-    console.log("he");
     setIsPlaying(true);
     setAudioValue(getTime(e.target.value));
     audioElement.current.currentTime = e.target.value;
@@ -105,7 +104,6 @@ export default function AudioPlayer({
     audioElement.current.volume = vol / 100;
   }
 
-  console.log(isPlaying);
   return (
     <>
       <div className=" sticky w-full bottom-0 bg-[#E5E7EB]  dark:bg-gray-800 dark:text-slate-100 text-gray-800 md:px-5 px-2  py-5 z-[9999]">

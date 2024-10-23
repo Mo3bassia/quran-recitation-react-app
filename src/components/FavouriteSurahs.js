@@ -28,7 +28,6 @@ export default function FavouriteSurahs({
 
   useEffect(
     function () {
-      console.log(favourite);
       setFavourite(
         favourite.map((favItem) => {
           reciters.map((reciter) => {
@@ -51,7 +50,6 @@ export default function FavouriteSurahs({
   );
 
   function handleStart(favItem) {
-    console.log(favItem);
     const link = `${favItem.currentReciter.server}${
       favItem.sura < 10
         ? `00${favItem.sura}`

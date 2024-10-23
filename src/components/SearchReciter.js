@@ -27,9 +27,6 @@ export default function SearchInput({
         )
       );
     }
-    if (e.target.value !== "" && checkSearchedEmpty) {
-      console.log("zero");
-    }
     setQuery(e.target.value);
   }
 
