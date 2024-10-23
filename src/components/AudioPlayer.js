@@ -111,14 +111,14 @@ export default function AudioPlayer({
 
   return (
     <>
-      <div className=" sticky w-full bottom-0 bg-[#E5E7EB]  dark:bg-gray-800 dark:text-slate-100 text-gray-800 p-5  z-[9999]">
-        <div className="container mx-auto flex items-center gap-3 md:gap-4 lg:gap-5">
+      <div className=" sticky w-full bottom-0 bg-[#E5E7EB]  dark:bg-gray-800 dark:text-slate-100 text-gray-800 md:px-5 px-2  py-5 z-[9999]">
+        <div className="container mx-auto flex items-center gap-2 sm:gap-3 md:gap-4 lg:gap-5">
           {!isPlaying ? (
             <PlayIcon onClick={() => handlePlaying()} />
           ) : (
             <PauseIcon onClick={() => handlePausing()} />
           )}
-          <div className="flex gap-5 items-center min-w-24 md:min-w-36 lg:min-w-56">
+          <div className="flex gap-5 items-center sm:min-w-24 md:min-w-36 lg:min-w-56">
             <div className="rounded-full w-12 h-12  items-center justify-center bg-blue-400 hidden lg:flex ">
               <QuranSvg size={24} />
             </div>
@@ -149,7 +149,7 @@ export default function AudioPlayer({
 
           <div className="relative w-full flex gap-1 md:gap-2 lg:gap-3 items-center">
             <div
-              className={`absolute md:hidden  text-sm p-2 rounded-lg pointer-events-none text-slate-100 font-bold z-[99999] `}
+              className={`absolute md:hidden text-[14px]  text-sm p-2 rounded-lg pointer-events-none text-slate-100 font-bold z-[99999] `}
               style={{
                 left: lang === "eng" && 0,
                 right: lang !== "eng" && 0,
@@ -192,7 +192,7 @@ export default function AudioPlayer({
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-6 cursor-pointer my-3"
+                className="size-4 md:size-6 cursor-pointer my-3 "
                 onClick={() => setVolumeSound(0)}
               >
                 <path
@@ -208,7 +208,7 @@ export default function AudioPlayer({
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-6 cursor-pointer  my-3"
+                className="size-4 md:size-6 cursor-pointer  my-3 "
                 onClick={() => setVolumeSound(100)}
               >
                 <path
