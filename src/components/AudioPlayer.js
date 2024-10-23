@@ -147,17 +147,12 @@ export default function AudioPlayer({
             </div>
           </div>
 
-          <div className="relative w-full group flex gap-1 md:gap-2 lg:gap-3 items-center">
+          <div className="relative w-full flex gap-1 md:gap-2 lg:gap-3 items-center">
             <div
-              className={`absolute  bg-slate-100 text-slate-800 text-sm p-2 rounded-lg shadow-lg dark:bg-slate-900 dark:text-slate-100 font-bold z-[99999] hidden group-hover:block md:group-hover:hidden`}
+              className={`absolute md:hidden  text-sm p-2 rounded-lg pointer-events-none text-slate-100 font-bold z-[99999] `}
               style={{
-                left: `${
-                  (audioElement.current?.currentTime /
-                    audioElement.current?.duration) *
-                  100
-                }%`,
-                transform: `translateX(-50%)`,
-                bottom: "calc(100%)",
+                left: lang === "eng" && 0,
+                right: lang !== "eng" && 0,
               }}
             >
               <div className=" font-[Montserrat]">
@@ -184,7 +179,7 @@ export default function AudioPlayer({
                   : 0
               }
               onChange={handleChangeAudio}
-              height={15}
+              height={19}
               className="w-full"
               currentPercent={currentPercent}
             />
