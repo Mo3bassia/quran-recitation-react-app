@@ -4,14 +4,42 @@ import FacebookIcon from "./FacebookIcon.js";
 import LinkedinIcon from "./LinkedinIcon.js";
 import WhatsAppIcon from "./WhatsAppIcon.js";
 
-export default function Footer() {
+export default function Footer({ lang }) {
   return (
-    <footer className=" shadow-md bg-[#E5E7EB]  dark:bg-gray-800 dark:text-slate-100 text-gray-800 py-4 text-center md:text-start">
+    <footer className="sticky bottom-[-200px] shadow-md bg-[#E5E7EB]  dark:bg-gray-800 dark:text-slate-100 text-gray-800 py-4 text-center md:text-start">
       <div className="container mx-auto px-2 flex items-center justify-between flex-col md:flex-row gap-3">
         <p className="text-slate-800 dark:text-slate-200">
-          © 2024 Designed and developed with
-          <HeartIcon moreClasses="size-6 mx-1.5 inline animate-ping fill-red-500 text-red-500" />
-          by Mohamed Abassia. All rights reserved.
+          {lang === "eng" ? (
+            <span>
+              Designed and developed with{" "}
+              <HeartIcon moreClasses="size-6 mx-1.5 inline animate-ping fill-red-500 text-red-500" />{" "}
+              by{" "}
+              <a
+                target="_blank"
+                className="text-blue-400 font-bold"
+                href="https://github.com/Mo3bassia"
+              >
+                Mohamed Abassia
+              </a>{" "}
+              - 2024 using{" "}
+              <span className="text-blue-400 font-bold">React</span>
+            </span>
+          ) : (
+            <span>
+              تم التصميم والتطوير بكل{" "}
+              <HeartIcon moreClasses="size-6 mx-1.5 inline animate-ping fill-red-500 text-red-500" />{" "}
+              بواسطة{" "}
+              <a
+                target="_blank"
+                className="text-blue-400 font-bold"
+                href="https://github.com/Mo3bassia"
+              >
+                محمد عباسية
+              </a>{" "}
+              - 2024 باستخدام{" "}
+              <span className="text-blue-400 font-bold">ريأكت</span>
+            </span>
+          )}
         </p>
         <div className="flex items-center gap-3">
           <a

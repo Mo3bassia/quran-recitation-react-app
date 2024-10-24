@@ -20,6 +20,7 @@ export default function RecitersContainer({
   setCurrentSurahIndex,
   setCurrentSurah,
   setFavourite,
+  navHeight,
   setCurrentReciters,
 }) {
   const [query, setQuery] = useState("");
@@ -27,7 +28,8 @@ export default function RecitersContainer({
 
   return (
     <div
-      className={`min-h-screen pb-5 bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50 `}
+      style={{ minHeight: `calc(100vh - ${navHeight}px)` }}
+      className={`bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50 `}
     >
       <div className={`container mx-auto p-4 pt-6 md:p-6 lg:p-12`}>
         {favourite.length > 0 && (
@@ -94,7 +96,6 @@ export default function RecitersContainer({
           </div>
         )}
       </div>
-      <Footer />
     </div>
   );
 }

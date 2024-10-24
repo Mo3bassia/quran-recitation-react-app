@@ -6,6 +6,7 @@ import AudioPlayer from "./components/AudioPlayer.js";
 import RecitersContainer from "./components/RecitersContainer.js";
 import SuwarContainer from "./components/SuwarContainer.js";
 import axios from "axios";
+import Footer from "./icons/Footer.js";
 
 export function addZero(num) {
   return num < 10 ? `0${num}` : num;
@@ -184,6 +185,7 @@ export default function App() {
         />
       )}
       <RecitersContainer
+        navHeight={navHeight}
         setPlayingReciter={setPlayingReciter}
         setCheck={setCheck}
         setCurrentSurah={setCurrentSurah}
@@ -198,6 +200,7 @@ export default function App() {
         isLoading={isLoading}
         setCurrentReciters={setCurrentReciters}
       />
+      <Footer lang={lang} />
       <AudioPlayer
         currentSurah={currentSurah}
         check={check}

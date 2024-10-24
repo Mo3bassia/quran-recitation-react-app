@@ -1,70 +1,127 @@
-# Getting Started with Create React App
+# Quran Recitation App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Features ✨
 
-## Available Scripts
+- **Dark Mode Toggle 🌙**
 
-In the project directory, you can run:
+  - Switch between light and dark themes.
 
-### `npm start`
+- **Custom Audio Player 🎵**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  - Play, pause, and control volume for Quran recitations.
+  - Custom audio player with playback progress and duration.
+  - Handle events for play, pause, volume change, and time update.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Favorites ⭐**
 
-### `npm test`
+  - Add and remove surahs to your favorites list.
+  - View and manage your favorite surahs.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Search Functionality 🔍**
 
-### `npm run build`
+  - Search for surahs and reciters.
+  - Filter results dynamically as you type.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Responsive Design 📱**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  - Optimized for both desktop and mobile views.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Multilingual Support 🌐**
 
-### `npm run eject`
+  - Switch between English and Arabic languages.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Download Surahs ⬇️**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  - Download individual surahs for offline listening using axios.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Fetching Data from API 🌐**
+  - Fetch and display data from external APIs.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Technologies and Concepts Used 🛠️
 
-## Learn More
+### React Fundamentals
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Created functional components.
+- Used React Hooks like `useState`, `useRef`, and `useEffect`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### JavaScript Skills
 
-### Code Splitting
+- Managed state, handled events, and worked with arrays and objects.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Props and State Management
 
-### Analyzing the Bundle Size
+- Passed props to components and managed state.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Event Handling
 
-### Making a Progressive Web App
+- Handled user interactions and events.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Conditional Rendering
 
-### Advanced Configuration
+- Rendered components and elements conditionally.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Styling
 
-### Deployment
+- Used Tailwind CSS for styling and applying animations.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### List Rendering
 
-### `npm run build` fails to minify
+- Rendered lists dynamically based on data.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Custom Hooks
+
+- Used custom hooks like `useLocalStorage`:
+  - **Volume**: Stored the user's preferred volume level.
+  - **Audio Value**: Stored the current playback time of the audio.
+  - **Current Percent**: Stored the percentage of audio progress.
+  - **Current Duration**: Stored the total duration of the audio.
+  - **Favourite Surahs**: Stored the user's favourite surahs for easy access.
+  - **Language (lang)**: Stored the preferred language (English or Arabic).
+  - **Dark Mode (isDark)**: Stored the user's dark mode preference.
+  - **Current Surah**: Stored the current surah being played.
+  - **Playing Reciter**: Stored the current reciter for the surah.
+  - **Current Reciter**: Stored the details of the current reciter.
+
+### Component Composition
+
+- Composed complex components from smaller, reusable components.
+
+### Error Handling and Fallbacks
+
+- Implemented a 404 error component for missing pages.
+
+### Dynamic Content Display
+
+- Displayed dynamic content based on props and state.
+
+### Search Functionality
+
+- Implemented search functionality with filtered results.
+
+### Theming
+
+- Implemented a dark mode toggle feature.
+
+### Local Storage
+
+- Used `localStorage` for persisting state across sessions.
+
+### Fetching Data from API
+
+- Used external APIs to fetch and display data.
+
+### Axios
+
+- Used axios library for handling file downloads and making API requests.
+
+## Live Demo 🚀
+
+Check out the live demo [here](https://quran-recitation-mo3bassias-projects.vercel.app).
+
+## Learning Journey 📘
+
+I started learning React 4 weeks ago and embarked on this project as a way to apply what I've learned. Throughout this journey, I have enhanced my skills in various areas and gained hands-on experience with real-world applications. The journey continues as I keep learning and improving my skills. Stay tuned for more updates!
+
+## Contribution 🤝
+
+Contributions are welcome! If you have any suggestions, bug reports, or feature requests, please feel free to open an issue or submit a pull request. Let's make this project even better together!
