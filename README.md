@@ -2,6 +2,10 @@
 
 ![Preview](./public/preview.gif)
 
+## Live Demo 🚀
+
+Check out the live demo [here](https://quran-recitation-mo3bassias-projects.vercel.app).
+
 ## Features ✨
 
 - **Dark Mode Toggle 🌙**
@@ -115,10 +119,6 @@
 ### Axios
 
 - Used axios library for handling file downloads and making API requests.
-
-## Live Demo 🚀
-
-Check out the live demo [here](https://quran-recitation-mo3bassias-projects.vercel.app).
 
 ## Learning Journey 📘
 
