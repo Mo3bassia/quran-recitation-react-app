@@ -1,4 +1,6 @@
-import axios from "axios";
+import { handleDownload } from "../App";
+import DownloadIcon from "./DownloadIcon.js";
+
 export default function Surah({
   lang,
   sura,
@@ -50,35 +52,6 @@ export default function Surah({
     );
   }
 
-  function handleDownload() {
-    const title =
-      lang === "eng"
-        ? `Sura ${allSurahs[+sura - 1].name} - ${currentReciters.name}`
-        : `سورة ${allSurahs[+sura - 1].name} - ${currentReciters.name}`;
-
-    const handleDownload = async () => {
-      try {
-        const response = await axios.get(
-          `${currentReciters.server}${sura}.mp3`,
-          {
-            responseType: "blob",
-          }
-        );
-
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", `${title.trim()}.mp3`);
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-      } catch (error) {
-        console.error("Error downloading the file:", error);
-      }
-    };
-    handleDownload();
-  }
-
   const checkActive = favourite.filter(
     (suraFav) =>
       currentReciters.name === suraFav.reciter && +sura === suraFav.sura
@@ -110,21 +83,18 @@ export default function Surah({
           </span>
         )}
       </p>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="size-8 hover:text-green-400"
-        onClick={handleDownload}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
-        />
-      </svg>
+      <DownloadIcon
+        link={`${currentReciters.server}${sura}.mp3`}
+        title={
+          lang === "eng"
+            ? `Sura ${allSurahs[+sura - 1].name} - ${currentReciters.name}`
+            : `سورة ${allSurahs[+sura - 1].name} - ${currentReciters.name}`
+        }
+        currentReciters={currentReciters}
+        sura={sura}
+        allSurahs={allSurahs}
+        lang={lang}
+      />
       <svg
         onClick={handleFavourite}
         xmlns="http://www.w3.org/2000/svg"

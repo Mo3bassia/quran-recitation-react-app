@@ -5,9 +5,31 @@ import { useLocalStorage } from "./hooks/useLocalStorage.js";
 import AudioPlayer from "./components/AudioPlayer.js";
 import RecitersContainer from "./components/RecitersContainer.js";
 import SuwarContainer from "./components/SuwarContainer.js";
+import axios from "axios";
 
 export function addZero(num) {
   return num < 10 ? `0${num}` : num;
+}
+
+export function handleDownload(link, title) {
+  const handleDownload = async () => {
+    try {
+      const response = await axios.get(link, {
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const linkEl = document.createElement("a");
+      linkEl.href = url;
+      linkEl.setAttribute("download", `${title.trim()}.mp3`);
+      document.body.appendChild(linkEl);
+      linkEl.click();
+      linkEl.remove();
+    } catch (error) {
+      console.error("Error downloading the file:", error);
+    }
+  };
+  handleDownload();
 }
 
 export function getTime(seconds) {
