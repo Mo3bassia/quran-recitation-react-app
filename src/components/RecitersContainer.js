@@ -4,6 +4,7 @@ import LoaderPost from "./LoaderPost.js";
 import Reciter from "./Reciter.js";
 import NotFound from "./NotFound.js";
 import FavouriteSurahs from "./FavouriteSurahs.js";
+import Footer from "../icons/Footer.js";
 import { useState } from "react";
 
 export default function RecitersContainer({
@@ -26,7 +27,7 @@ export default function RecitersContainer({
 
   return (
     <div
-      className={`min-h-screen bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50 `}
+      className={`min-h-screen pb-5 bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50 `}
     >
       <div className={`container mx-auto p-4 pt-6 md:p-6 lg:p-12`}>
         {favourite.length > 0 && (
@@ -93,6 +94,7 @@ export default function RecitersContainer({
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }

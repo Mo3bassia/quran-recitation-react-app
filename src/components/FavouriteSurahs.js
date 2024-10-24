@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import DownloadIcon from "./DownloadIcon";
-import OpenListIcon from "./OpenListIcon.js";
-import CloseListIcon from "./CloseListIcon.js";
+import DownloadIcon from "../icons/DownloadIcon.js";
+import OpenListIcon from "../icons/OpenListIcon.js";
+import CloseListIcon from "../icons/CloseListIcon.js";
+import HeartIcon from "../icons/HeartIcon.js";
 
 export default function FavouriteSurahs({
   lang,
@@ -123,23 +124,12 @@ export default function FavouriteSurahs({
                             }`
                       }
                     />
-                    <svg
+                    <HeartIcon
                       onClick={() => handleRemove(favItem)}
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className={`size-6 text-red-600 fill-red-600 ${
+                      moreClasses={`md:size-8 size-6 text-red-600 fill-red-600 ${
                         false ? "text-red-600 fill-red-600" : ""
                       }`}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-                      />
-                    </svg>
+                    />
                   </div>
                 </div>
               </div>

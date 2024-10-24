@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import QuranSvg from "./QuranSvg.js";
 import RangeInput from "./RangeInput.js";
 import { useLocalStorage } from "../hooks/useLocalStorage.js";
-import PlayIcon from "./PlayIcon.js";
-import PauseIcon from "./PauseIcon.js";
+import PlayIcon from "../icons/PlayIcon.js";
+import PauseIcon from "../icons/PauseIcon.js";
 import { getTime, addZero } from "../App.js";
 
 export default function AudioPlayer({
