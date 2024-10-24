@@ -1,5 +1,7 @@
 # Quran Recitation App
 
+![Preview](./public/preview.gif)
+
 ## Features ✨
 
 - **Dark Mode Toggle 🌙**
@@ -125,3 +127,7 @@ I started learning React 4 weeks ago and embarked on this project as a way to ap
 ## Contribution 🤝
 
 Contributions are welcome! If you have any suggestions, bug reports, or feature requests, please feel free to open an issue or submit a pull request. Let's make this project even better together!
+
+---
+
+**© 2024, Created by mo3bassia using React.**
