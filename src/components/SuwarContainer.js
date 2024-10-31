@@ -1,6 +1,7 @@
 import Surah from "./Surah";
 import SearchSura from "./SearchSura.js";
 import { useState } from "react";
+import Overlay from "./Overlay.js";
 
 export default function SuwarContainer({
   currentReciters,
@@ -38,6 +39,7 @@ export default function SuwarContainer({
       }}
       className={`z-50 fixed overflow-auto left-0 w-full bg-[#F3F4F6] dark:bg-gray-900 text-gray-800 dark:text-gray-50 pb-16 `}
     >
+      <Overlay />
       <div className="container mx-auto p-4 pt-6 md:p-6 lg:p-12">
         <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold mb-4">
           {currentReciters.name}

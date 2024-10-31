@@ -7,6 +7,7 @@ import RecitersContainer from "./components/RecitersContainer.js";
 import SuwarContainer from "./components/SuwarContainer.js";
 import axios from "axios";
 import Footer from "./icons/Footer.js";
+import Overlay from "./components/Overlay.js";
 
 export function addZero(num) {
   return num < 10 ? `0${num}` : num;
@@ -157,6 +158,7 @@ export default function App() {
   );
   return (
     <>
+      <Overlay />
       <Nav
         isLoading={isLoading}
         setIsDark={setIsDark}
