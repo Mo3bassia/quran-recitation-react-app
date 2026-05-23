@@ -56,16 +56,16 @@ export default function App() {
   const [check, setCheck] = useState(false);
   const [currentSurahIndex, setCurrentSurahIndex] = useLocalStorage(
     "",
-    "currentSurahIndex"
+    "currentSurahIndex",
   );
   const [allSurahs, setAllSurahs] = useLocalStorage([], "allSurahs");
   const [currentReciters, setCurrentReciters] = useLocalStorage(
     "",
-    "currentReciters"
+    "currentReciters",
   );
   const [playingReciter, setPlayingReciter] = useLocalStorage(
     "",
-    "playingReciter"
+    "playingReciter",
   );
   const nav = useRef(null);
   const audioElement = useRef(null);
@@ -75,7 +75,7 @@ export default function App() {
       if (currentReciters) document.body.style.overflow = "hidden";
       return () => (document.body.style.overflow = "auto");
     },
-    [currentReciters]
+    [currentReciters],
   );
 
   useEffect(
@@ -84,7 +84,7 @@ export default function App() {
       async function getReciters() {
         setIsLoading(true);
         const response = await fetch(
-          `https://www.mp3quran.net/api/v3/reciters?language=${lang}`
+          `https://www.mp3quran.net/api/v3/reciters?language=${lang}`,
         );
         const data = await response.json();
         setReciters(data.reciters);
@@ -94,12 +94,12 @@ export default function App() {
         )
           setPlayingReciter(
             data.reciters.filter(
-              (reciter) => reciter.id === playingReciter.id
-            )[0]
+              (reciter) => reciter.id === playingReciter.id,
+            )[0],
           );
 
         const responseForSurahs = await fetch(
-          `https://www.mp3quran.net/api/v3/suwar?language=${lang}`
+          `https://www.mp3quran.net/api/v3/suwar?language=${lang}`,
         );
         const suras = await responseForSurahs.json();
         setAllSurahs(suras.suwar);
@@ -107,7 +107,7 @@ export default function App() {
       }
       getReciters();
     },
-    [lang]
+    [lang],
   );
 
   function resetAll() {
@@ -126,7 +126,7 @@ export default function App() {
     "text-slate-800",
     "dark:text-slate-200",
     "ltr:font-[Montserrat]",
-    "rtl:font-noto-arabic"
+    "rtl:font-noto-arabic",
   );
 
   useEffect(function () {
@@ -147,14 +147,14 @@ export default function App() {
         document.body.classList.remove("ar");
       };
     },
-    [lang, isDark]
+    [lang, isDark],
   );
 
   useEffect(
     function () {
       setNavHeight(nav.current.clientHeight);
     },
-    [nav]
+    [nav],
   );
   return (
     <>
@@ -211,6 +211,7 @@ export default function App() {
         playingReciter={playingReciter}
         lang={lang}
         audioElement={audioElement}
+        isDark={isDark}
       />
       <audio className="none" autoPlay={true} ref={audioElement}></audio>
     </>

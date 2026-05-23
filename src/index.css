@@ -58,3 +58,48 @@ audio::-webkit-media-controls-volume-slider {
     visibility: hidden;
   }
 }
+
+/* Custom Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Fullscreen Progress Bar Styling */
+input[type="range"].fullscreen-progress-dark {
+  background: linear-gradient(
+    to right,
+    rgba(59, 130, 246, 0.8) 0%,
+    rgba(59, 130, 246, 0.8) var(--value),
+    rgba(255, 255, 255, 0.15) var(--value),
+    rgba(255, 255, 255, 0.15) 100%
+  );
+}
+
+input[type="range"].fullscreen-progress-light {
+  background: linear-gradient(
+    to right,
+    rgba(244, 63, 94, 0.7) 0%,
+    rgba(244, 63, 94, 0.7) var(--value),
+    rgba(252, 165, 165, 0.3) var(--value),
+    rgba(252, 165, 165, 0.3) 100%
+  );
+}
+
+input[type="range"].fullscreen-volume {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.95) var(--value),
+    rgba(255, 255, 255, 0.25) var(--value),
+    rgba(255, 255, 255, 0.25) 100%
+  );
+}
