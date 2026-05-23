@@ -92,7 +92,8 @@ export default function AudioPlayer({
         setIsPlaying(true);
       };
     },
-    [currentSurah, check, playingReciter.id, pauseAndPlay.current],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [currentSurah, check, playingReciter.id],
   );
   let [secondsCurrent, minutesCurrent, hoursCurrent] = getTime(audioValue);
   let [secondsDuration, minutesDuration, hoursDuration] =
